@@ -8,13 +8,14 @@ import '../../data/repositories/settings_repository_impl.dart';
 import '../../data/repositories/user_repository_impl.dart';
 import '../../domain/repositories/settings_repository.dart';
 import '../../domain/repositories/user_repository.dart';
+import '../../presentation/stores/theme_store.dart';
 import '../navigation/app_router.dart';
 
 final GetIt locator = GetIt.instance;
 
 class DependencyInjection {
   static Future<void> init() async {
-    // External dependencies
+    // External Dependencies
     final sharedPreferences = await SharedPreferences.getInstance();
     locator.registerSingleton<SharedPreferences>(sharedPreferences);
 
@@ -30,8 +31,17 @@ class DependencyInjection {
       () => UserRepositoryImpl(localStorageService: locator()),
     );
 
+    locator.registerLazySingleton<SettingsRepositoryImpl>(
+      () => SettingsRepositoryImpl(localStorageService: locator()),
+    );
+
     locator.registerLazySingleton<SettingsRepository>(
       () => SettingsRepositoryImpl(localStorageService: locator()),
+    );
+
+    // Stores
+    locator.registerLazySingleton<ThemeStore>(
+      () => ThemeStore(locator<SettingsRepository>())..loadTheme(),
     );
 
     // Router

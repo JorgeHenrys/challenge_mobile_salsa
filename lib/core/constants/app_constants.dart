@@ -1,5 +1,5 @@
 class AppConstants {
-  static const String appName = 'Flutter Clean App';
+  static const String appName = 'Challenge Mobile Salsa App';
   static const String loginKey = 'isLoggedIn';
   static const String themeKey = 'isDarkMode';
   static const String userKey = 'currentUser';

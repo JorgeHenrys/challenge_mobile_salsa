@@ -1,0 +1,50 @@
+[
+    {
+        "id": "1",
+        "title": "Smartphone Samsung",
+        "image": "https://example.com/smartphone.jpg",
+        "description": "Galaxy S23 com 256GB de armazenamento",
+        "category": "Eletrônicos",
+        "price": 2999.99
+    },
+    {
+        "id": "2",
+        "title": "Notebook Dell",
+        "image": "https://example.com/notebook.jpg",
+        "description": "Inspiron 15 com 16GB RAM e SSD 512GB",
+        "category": "Informática",
+        "price": 4299.99
+    },
+    {
+        "id": "3",
+        "title": "Fone Bluetooth",
+        "image": "https://example.com/fone.jpg",
+        "description": "Fone Sony WH-1000XM4 com cancelamento de ruído",
+        "category": "Áudio",
+        "price": 1299.99
+    },
+    {
+        "id": "4",
+        "title": "Smart TV 55\"",
+        "image": "https://example.com/tv.jpg",
+        "description": "TV LG 4K UHD com Smart TV webOS",
+        "category": "Eletrônicos",
+        "price": 3499.99
+    },
+    {
+        "id": "5",
+        "title": "Tablet iPad",
+        "image": "https://example.com/tablet.jpg",
+        "description": "iPad Air 5ª geração 64GB Wi-Fi",
+        "category": "Tablets",
+        "price": 4899.99
+    },
+    {
+        "id": "6",
+        "title": "Câmera Canon",
+        "image": "https://example.com/camera.jpg",
+        "description": "Câmera DSLR EOS Rebel T7 com lente 18-55mm",
+        "category": "Fotografia",
+        "price": 2199.99
+    }
+]
