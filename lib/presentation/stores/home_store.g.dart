@@ -95,6 +95,34 @@ mixin _$HomeStore on HomeStoreImp, Store {
     });
   }
 
+  late final _$currentUserAtom = Atom(
+    name: 'HomeStoreImp.currentUser',
+    context: context,
+  );
+
+  @override
+  UserEntity? get currentUser {
+    _$currentUserAtom.reportRead();
+    return super.currentUser;
+  }
+
+  @override
+  set currentUser(UserEntity? value) {
+    _$currentUserAtom.reportWrite(value, super.currentUser, () {
+      super.currentUser = value;
+    });
+  }
+
+  late final _$loadCurrentUserAsyncAction = AsyncAction(
+    'HomeStoreImp.loadCurrentUser',
+    context: context,
+  );
+
+  @override
+  Future<void> loadCurrentUser() {
+    return _$loadCurrentUserAsyncAction.run(() => super.loadCurrentUser());
+  }
+
   late final _$loadItemsAsyncAction = AsyncAction(
     'HomeStoreImp.loadItems',
     context: context,
@@ -139,6 +167,7 @@ items: ${items},
 isLoading: ${isLoading},
 filterCategory: ${filterCategory},
 categories: ${categories},
+currentUser: ${currentUser},
 filteredItems: ${filteredItems},
 favoriteItems: ${favoriteItems}
     ''';

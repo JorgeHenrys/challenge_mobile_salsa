@@ -17,22 +17,26 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<List<String>> getFavorites() async {
-    return localStorageService.getList('favorites');
+  Future<List<String>> getFavorites(String userId) async {
+    final key = 'favorites_$userId';
+    return localStorageService.getList(key);
   }
 
   @override
-  Future<void> addFavorite(String itemId) async {
-    await localStorageService.addToList('favorites', itemId);
+  Future<void> addFavorite(String userId, String itemId) async {
+    final key = 'favorites_$userId';
+    await localStorageService.addToList(key, itemId);
   }
 
   @override
-  Future<void> removeFavorite(String itemId) async {
-    await localStorageService.removeFromList('favorites', itemId);
+  Future<void> removeFavorite(String userId, String itemId) async {
+    final key = 'favorites_$userId';
+    await localStorageService.removeFromList(key, itemId);
   }
 
   @override
-  Future<bool> isFavorite(String itemId) async {
-    return localStorageService.listContains('favorites', itemId);
+  Future<bool> isFavorite(String userId, String itemId) async {
+    final key = 'favorites_$userId';
+    return localStorageService.listContains(key, itemId);
   }
 }

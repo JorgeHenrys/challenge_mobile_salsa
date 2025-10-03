@@ -3,7 +3,9 @@ import 'package:mobx/mobx.dart';
 import '../../data/models/item_model.dart';
 import '../../data/services/asset_service.dart';
 import '../../domain/entities/item_entity.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/settings_repository.dart';
+import '../../domain/repositories/user_repository.dart';
 
 part 'home_store.g.dart';
 
@@ -11,8 +13,9 @@ class HomeStore = HomeStoreImp with _$HomeStore;
 
 abstract class HomeStoreImp with Store {
   final SettingsRepository settingsRepository;
+  final UserRepository userRepository;
 
-  HomeStoreImp(this.settingsRepository);
+  HomeStoreImp(this.settingsRepository, this.userRepository);
 
   @observable
   ObservableList<ItemEntity> items = ObservableList.of([]);
@@ -26,10 +29,21 @@ abstract class HomeStoreImp with Store {
   @observable
   List<String> categories = ['Todos'];
 
+  @observable
+  UserEntity? currentUser;
+
+  @action
+  Future<void> loadCurrentUser() async {
+    currentUser = await userRepository.getCurrentUser();
+  }
+
   @action
   Future<void> loadItems() async {
     isLoading = true;
     try {
+      await loadCurrentUser();
+      if (currentUser == null) return;
+
       final List<ItemModel> loadedModels =
           await AssetService.getAvailableItemModels();
 
@@ -39,7 +53,7 @@ abstract class HomeStoreImp with Store {
           .toList();
       categories = ['Todos', ...uniqueCategories];
 
-      final favorites = await settingsRepository.getFavorites();
+      final favorites = await settingsRepository.getFavorites(currentUser!.id);
 
       final List<ItemEntity> loadedItems = loadedModels.map((model) {
         return model.toEntity().copyWith(
@@ -58,6 +72,8 @@ abstract class HomeStoreImp with Store {
 
   @action
   Future<void> toggleFavorite(String itemId) async {
+    if (currentUser == null) return;
+
     final itemIndex = items.indexWhere((item) => item.id == itemId);
     if (itemIndex != -1) {
       final item = items[itemIndex];
@@ -66,9 +82,9 @@ abstract class HomeStoreImp with Store {
       items[itemIndex] = item.copyWith(isFavorite: newFavoriteStatus);
 
       if (newFavoriteStatus) {
-        await settingsRepository.addFavorite(itemId);
+        await settingsRepository.addFavorite(currentUser!.id, itemId);
       } else {
-        await settingsRepository.removeFavorite(itemId);
+        await settingsRepository.removeFavorite(currentUser!.id, itemId);
       }
     }
   }
