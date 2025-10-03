@@ -1,16 +1,13 @@
-# challenge_mobile_salsa
+# 📱 Flutter Clean App
 
-A new Flutter project.
+Uma aplicação Flutter desenvolvida com **Clean Architecture**, **MobX** e **SOLID principles** para o Desafio da Salsa Tecnology.
 
-## Getting Started
+## 🚀 Como Executar
 
-This project is a starting point for a Flutter application.
+### Pré-requisitos
+- Flutter 3.32.6 • channel stable
+- Dart 3.8.1
 
-A few resources to get you started if this is your first Flutter project:
+### Passos Rápidos
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clone e entre na pasta**
